@@ -12,10 +12,6 @@ import (
 
 func main() {
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(r.URL.String()))
-	})
-
 	go startServer()
 
 	stopNaive := measure()
@@ -35,6 +31,10 @@ func main() {
 }
 
 func startServer() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(r.URL.String()))
+	})
+
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)
